@@ -14,3 +14,10 @@
     margin-top:10px;
     border-radius: 12px;
 }
+.truncate {
+    margin-top:10px;
+    width: 90px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

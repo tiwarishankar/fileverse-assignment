@@ -3,13 +3,14 @@ import { useAlchemyState } from "../../context/alchemyState";
 import { ethers } from "ethers";
 import NftContainer from "../nft-container";
 import "./index.css";
+import LoaderComponent from "../LoaderComponent";
 
 export default function MainPage() {
   const { ethereum } = window;
   const [balance, setBalance] = useState(undefined);
   const { account, setAccount, alchemy, isSet } = useAlchemyState();
   const [totalNFT, setTotalNFT] = useState([]);
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false);
 
   const checkIfWalletIsConnected = async () => {
     if (!ethereum) {
@@ -20,10 +21,9 @@ export default function MainPage() {
     const accounts = await ethereum.request({ method: "eth_accounts" });
     if (accounts.length !== 0) {
       const account = accounts[0];
-      // console.log("Found an Authorised Account-->", account);
       setAccount(account);
     } else {
-      // console.log("No authorized found");
+      console.log("No authorized found");
     }
     setLoading(false);
   };
@@ -44,7 +44,6 @@ export default function MainPage() {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      console.log("Connected", accounts[0]);
       setAccount(accounts[0]);
     } catch (err) {
       console.log(err);
@@ -64,21 +63,19 @@ export default function MainPage() {
   };
 
   const fetchNFT = async () => {
-    setLoading(true)
-    console.log(isLoading)
-    
+    setLoading(true);
+    console.log(isLoading);
+    //here  open account is written for nft checking purpose
     const ownerAddr = "0x3a2548af0f22204eec8da7b2d002f0b01f9cdab8";
+    //for checking nft of your account comment above line and comment out below line
+    // const ownerAddr= account;
     // Print total NFT count returned in the response:
-   // const ownerAddr= account;
     const nftsForOwner = await alchemy.nft.getNftsForOwner(ownerAddr);
-    console.log(nftsForOwner)
+    console.log(nftsForOwner);
     const numberOfNFT = nftsForOwner.totalCount;
-    console.log(nftsForOwner?.ownedNfts)
-    
-    setTotalNFT(nftsForOwner?.ownedNfts)
-    
-    setLoading(false)
-    
+    console.log(nftsForOwner?.ownedNfts);
+    setTotalNFT(nftsForOwner?.ownedNfts);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -88,27 +85,29 @@ export default function MainPage() {
     }
   }, [isSet, account]);
 
-  function disconnect() {
-    try {
-      setAccount("");
-    } catch (err) {
-      alert(err);
-    }
-  }
+  // function disconnect() {
+  //   try {
+  //     setAccount("");
+  //   } catch (err) {
+  //     alert(err);
+  //   }
+  // }
 
-  if (isLoading) return "Loading...";
+  if (isLoading) return <LoaderComponent />;
 
   return (
     <div className="flex flex-col items-center bg-neutral-100 min-h-screen ">
       {account && balance && (
         <div className="balance-card">
-         <div className="balance-info">Balance of your account in : {balance} eth</div>
-        <button
+          <div className="balance-info">
+            Balance of your account in : {balance} eth
+          </div>
+          {/* <button
         onClick={ disconnect}
         className="py-2 text-lg font-semibold text-white rounded-lg w-60 bg-amber-500 hover:bg-amber-600"
       >
        Disconnect
-      </button>
+      </button> */}
         </div>
       )}
       {!account && (
@@ -121,27 +120,13 @@ export default function MainPage() {
           </button>
         </div>
       )}
-      {/* { active && 
-      <div className="flex flex-col justify-between mt-10 mb-5 w-10/12 rounded-xl bg-white p-4 sm:flex-row">
-        <div className="break-words">
-          Account: <b>{account}</b>
-          <Balance account={account} chainId={chainId}/>
-        </div>
-        
-        <div>
-          <button onClick={disconnect} className="py-2 text-lg font-semibold text-white rounded-lg w-48 bg-amber-500 hover:bg-amber-600">
-            Disconnect
-          </button>
-        </div>
-
-      </div> } */}
-
       {account && totalNFT && (
         <div className="nft-card-container">
           {totalNFT.map((item, index) => (
-            <NftContainer key={index}
-            image= {item?.media[0]?.gateway}
-            nftTitle={item?.title}
+            <NftContainer
+              key={index}
+              image={item?.media[0]?.gateway}
+              nftTitle={item?.title}
             />
           ))}
         </div>
