@@ -16,7 +16,7 @@ export default function NftContainer({ image, nftTitle }) {
       {image && <img src={image} alt="img-blur-shadow" className="nft-img" />}
       <OverlayTrigger
         placement="bottom"
-        delay={{ show: 250, hide: 400 }}
+        delay={{show: 250, hide: 400 }}
         overlay={renderTooltip}
       >
         <div className="truncate">{nftTitle}</div>

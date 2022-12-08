@@ -5,13 +5,12 @@ import NftContainer from "../nft-container";
 import "./index.css";
 import LoaderComponent from "../LoaderComponent";
 
-export default function MainPage() {
+export default function MainPage(){
   const { ethereum } = window;
   const [balance, setBalance] = useState(undefined);
   const { account, setAccount, alchemy, isSet } = useAlchemyState();
   const [totalNFT, setTotalNFT] = useState([]);
   const [isLoading, setLoading] = useState(false);
-
   const checkIfWalletIsConnected = async () => {
     if (!ethereum) {
       console.log("Make sure you have metamask");
@@ -65,10 +64,10 @@ export default function MainPage() {
   const fetchNFT = async () => {
     setLoading(true);
     console.log(isLoading);
-    //here  open account is written for nft checking purpose
-    const ownerAddr = "0x3a2548af0f22204eec8da7b2d002f0b01f9cdab8";
-    //for checking nft of your account comment above line and comment out below line
-    // const ownerAddr= account;
+    // here  open account is written for nft checking purpose
+    // const ownerAddr = "0x3a2548af0f22204eec8da7b2d002f0b01f9cdab8";
+    // for checking nft of your account comment above line and comment out below line
+    const ownerAddr = account;
     // Print total NFT count returned in the response:
     const nftsForOwner = await alchemy.nft.getNftsForOwner(ownerAddr);
     console.log(nftsForOwner);
@@ -93,8 +92,8 @@ export default function MainPage() {
   //   }
   // }
 
-  if (isLoading) return <LoaderComponent />;
-
+  if (isLoading) return <LoaderComponent/>;
+  
   return (
     <div className="flex flex-col items-center bg-neutral-100 min-h-screen ">
       {account && balance && (
@@ -131,6 +130,11 @@ export default function MainPage() {
           ))}
         </div>
       )}
+      {totalNFT.length===0 && 
+       <div className="no-nft-card-container">
+       No NFT Found
+     </div>
+      }
     </div>
   );
 }
