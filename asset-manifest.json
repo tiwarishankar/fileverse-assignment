@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/fileverse-assignment/static/css/main.21573185.css",
-    "main.js": "/fileverse-assignment/static/js/main.ced44e2e.js",
+    "main.css": "/fileverse-assignment/static/css/main.3c916c7d.css",
+    "main.js": "/fileverse-assignment/static/js/main.77efe23a.js",
     "static/js/195.d8a453bc.chunk.js": "/fileverse-assignment/static/js/195.d8a453bc.chunk.js",
     "static/js/557.0bacd755.chunk.js": "/fileverse-assignment/static/js/557.0bacd755.chunk.js",
     "index.html": "/fileverse-assignment/index.html",
-    "main.21573185.css.map": "/fileverse-assignment/static/css/main.21573185.css.map",
-    "main.ced44e2e.js.map": "/fileverse-assignment/static/js/main.ced44e2e.js.map",
+    "main.3c916c7d.css.map": "/fileverse-assignment/static/css/main.3c916c7d.css.map",
+    "main.77efe23a.js.map": "/fileverse-assignment/static/js/main.77efe23a.js.map",
     "195.d8a453bc.chunk.js.map": "/fileverse-assignment/static/js/195.d8a453bc.chunk.js.map",
     "557.0bacd755.chunk.js.map": "/fileverse-assignment/static/js/557.0bacd755.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.21573185.css",
-    "static/js/main.ced44e2e.js"
+    "static/css/main.3c916c7d.css",
+    "static/js/main.77efe23a.js"
   ]
 }
