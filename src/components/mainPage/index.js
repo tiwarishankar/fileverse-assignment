@@ -63,14 +63,8 @@ export default function MainPage(){
 
   const fetchNFT = async () => {
     setLoading(true);
-    console.log(isLoading);
-    // here  open account is written for nft checking purpose
-    // const ownerAddr = "0x3a2548af0f22204eec8da7b2d002f0b01f9cdab8";
-    // for checking nft of your account comment above line and comment out below line
     const ownerAddr = account;
-    // Print total NFT count returned in the response:
     const nftsForOwner = await alchemy.nft.getNftsForOwner(ownerAddr);
-    console.log(nftsForOwner);
     const numberOfNFT = nftsForOwner.totalCount;
     console.log(nftsForOwner?.ownedNfts);
     setTotalNFT(nftsForOwner?.ownedNfts);
@@ -84,13 +78,6 @@ export default function MainPage(){
     }
   }, [isSet, account]);
 
-  // function disconnect() {
-  //   try {
-  //     setAccount("");
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // }
 
   if (isLoading) return <LoaderComponent/>;
   
@@ -101,12 +88,6 @@ export default function MainPage(){
           <div className="balance-info">
             Balance of your account in : {balance} eth
           </div>
-          {/* <button
-        onClick={ disconnect}
-        className="py-2 text-lg font-semibold text-white rounded-lg w-60 bg-amber-500 hover:bg-amber-600"
-      >
-       Disconnect
-      </button> */}
         </div>
       )}
       {!account && (
@@ -130,7 +111,7 @@ export default function MainPage(){
           ))}
         </div>
       )}
-      {totalNFT.length===0 && 
+      {totalNFT.length===0 && account && 
        <div className="no-nft-card-container">
        No NFT Found
      </div>
